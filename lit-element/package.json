@@ -1,0 +1,25 @@
+{
+  "name": "@webcomponents-playground/lit-element",
+  "version": "1.0.0",
+  "description": "test lit-element lib to create web componets",
+  "main": "index.js",
+  "dependencies": {
+    "lit-element": "^2.1.0",
+    "tslib": "^1.9.3"
+  },
+  "devDependencies": {},
+  "scripts": {
+    "compile": "tsc",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/bameda/webcomponents-playground.git"
+  },
+  "author": "David Barragán",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/bameda/webcomponents-playground/issues"
+  },
+  "homepage": "https://github.com/bameda/webcomponents-playground#readme"
+}
