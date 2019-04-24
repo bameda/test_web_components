@@ -6,26 +6,25 @@ import {
   customElement
 } from "lit-element";
 
+type Day = 
+  "MON" |
+  "TUE" |
+  "WED" |
+  "THU" |
+  "FRI" |
+  "SAT" |
+  "SUN";
+
 @customElement("weekdays-selector")
 export default class WeekDaysSelector extends LitElement {
-  @property()
-  selectedDays = {
-    MONDAY: false,
-    TUESDAY: false,
-    WEDNESDAY: false,
-    THURSDAY: false,
-    FRIDAY: false,
-    SATURDAY: false,
-    SUNDAY: false
-  };
+  @property({ type: Array, reflect: false })
+  value: Day[] = [];
 
   static get styles() {
     return css`
       :host {
-        align-items: center;
         max-width: 24rem;
         display: flex;
-        justify-content: center;
       }
 
       .week-days-selector {
@@ -72,35 +71,49 @@ export default class WeekDaysSelector extends LitElement {
     `;
   }
 
+  onChange = (event: Event) => {
+    const val = (<HTMLInputElement>event.target)!.value;
+
+    if (this.value.includes(<Day>val)) {
+      this.value = this.value.filter(v => v !== val);
+    }
+    else {
+      this.value = [...this.value, <Day>val];
+    }
+
+    const evt = new Event('change');
+    this.dispatchEvent(evt);
+  };
+
   render() {
     return html`
       <div class="week-days-selector">
         <div class="day">
-          <input id="mon" name="mon" type="checkbox" value="MONDAY" ?checked="${this.selectedDays["MONDAY"]}" />
+          <input id="mon" name="mon" type="checkbox" value="MON" ?checked="${this.value.includes("MON")}" @change="${this.onChange}" />
           <label for="mon">MON</label>
         </div>
         <div class="day">
-          <input id="tue" name="tue" type="checkbox" value="TUESDAY" ?checked="${this.selectedDays["TUESDAY"]}" />
+          <input id="tue" name="tue" type="checkbox" value="TUE" ?checked="${this.value.includes("TUE")}" @change="${this.onChange}" />
           <label for="tue">TUE</label>
         </div>
         <div class="day">
-          <input id="wed" name="wed" type="checkbox" value="WEDNESDAY" ?checked="${this.selectedDays["WEDNESDAY"]}" />
+          <input id="wed" name="wed" type="checkbox" value="WEDY" ?checked="${this.value.includes("WED")}" @change="${this.onChange}" />
           <label for="wed">WED</label>
         </div>
         <div class="day">
-          <input id="thu" name="thu" type="checkbox" value="THURSDAY" ?checked="${this.selectedDays["THURSDAY"]}" />
+          <input id="thu" name="thu" type="checkbox" value="THU" ?checked="${this.value.includes("THU")}" @change="${this.onChange}" />
           <label for="thu">THU</label>
         </div>
         <div class="day">
-          <input id="fri" name="fri" type="checkbox" value="FRIDAY" ?checked="${this.selectedDays["FRIDAY"]}" />
+          <input id="fri" name="fri" type="checkbox" value="FRI" ?checked="${this.value.includes("FRI")}" @change="${this.onChange}" />
           <label for="fri">FRI</label>
         </div>
         <div class="day">
-          <input id="sat" name="sat" type="checkbox" value="SATURDAY" ?checked="${this.selectedDays["SATURDAY"]}" />
+          <input id="sat" name="sat" type="checkbox" value="SAT" ?checked="${this.value.includes("SAT")}" @change="${this.onChange}" />
           <label for="sat">SAT</label>
         </div>
         <div class="day">
-          <input id="sun" name="sun" type="checkbox" value="SUNDAY" ?checked="${this.selectedDays["SUNDAY"]}" />
+          <input id="sun" name="sun" type="checkbox" value="SUN" ?checked="${this.value.includes("SUN")}" @change="${this.onChange}" />
           <label for="sun">SUN</label>
         </div>
       </div>
